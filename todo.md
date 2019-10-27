@@ -1,0 +1,1 @@
+- Dynamically load commands + update cli command

@@ -5,7 +5,7 @@ export async function run(name){
         return console.log("Please enter a project name");
     }
     const basedir = dirname(dirname(import.meta.url)).replace("file:///", "");
-    await copyDirectoryRecursive(`${basedir}/templates/projects/web`, `${process.cwd()}/${name}`);
+    await copyDirectoryRecursive(`${basedir}/templates/cli/node-cli`, `${process.cwd()}/${name}`);
 };
 
 export const args = [
