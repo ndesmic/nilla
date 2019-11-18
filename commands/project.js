@@ -1,4 +1,5 @@
 import { copyDirectoryRecursive } from "../utilities/fs-util.js";
+import { dirname } from "path";
 
 export async function run(name){
     if(!name){
