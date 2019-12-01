@@ -1,4 +1,4 @@
-import { ensureCopy } from "../utilities/fs-util.js";
+import { ensureCopyReplace } from "../utilities/fs-util.js";
 import { dirname } from "path";
 
 export async function run(name){
@@ -6,7 +6,12 @@ export async function run(name){
         return console.log("Please enter a component name");
     }
     const basedir = dirname(dirname(import.meta.url)).replace("file:///", "");
-    await ensureCopy(`${basedir}/templates/components/web-component/web-component.js`, `${process.cwd()}/js/components/${name}.js`);
+    await ensureCopyReplace(
+        `${basedir}/templates/components/web-component/web-component.js`, 
+        `${process.cwd()}/js/components/${name}.js`,
+        /\$(.*?)\$/g,
+        _ => name
+    );
 };
 
 export const args = [

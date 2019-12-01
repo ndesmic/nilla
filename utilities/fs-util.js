@@ -1,6 +1,8 @@
 import { promises as fs, createReadStream, createWriteStream } from "fs";
 import { join } from "path";
 
+import { replaceStream } from "./stream-utils.js";
+
 export const exists = async (path) =>
     fs.access(path).then(() => true).catch(() => false);
 
@@ -30,6 +32,14 @@ export const copy = (src, dest) =>
             .on("close", res)
             .on("error", rej));
 
+export const copyReplace = (src, dest, regex, replaceFunc) =>
+    new Promise((res, rej) =>
+        createReadStream(src)
+            .pipe(replaceStream(regex, replaceFunc))
+            .pipe(createWriteStream(dest))
+            .on("close", res)
+            .on("error", rej));
+
 export const ensureCopy = async (src, dest) => {
     const destSplit = dest.split("/");
     let currentPath = destSplit[0];
@@ -38,4 +48,14 @@ export const ensureCopy = async (src, dest) => {
         await ensure(currentPath); 
     }
     await copy(src, dest);
+};
+
+export const ensureCopyReplace = async (src, dest, regex, replaceFunc) => {
+    const destSplit = dest.split("/");
+    let currentPath = destSplit[0];
+    for await(let part of destSplit.slice(1, destSplit.length - 1)){
+        currentPath = currentPath + "/" + part;
+        await ensure(currentPath); 
+    }
+    await copyReplace(src, dest, regex, replaceFunc);
 };

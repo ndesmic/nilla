@@ -1,4 +1,4 @@
-customElements.define("web-component",
+customElements.define("$NAME$",
 	class extends HTMLElement {
 		static get observedAttributes(){
 			return [];
