@@ -17,6 +17,11 @@
 	--info-light: #d9dbff;
 	--positive-medium: #008000;
 	--positive-light: #e2ffd9;
+
+	--checker: linear-gradient(45deg, #eee 25%, transparent 25%),
+	  linear-gradient(-45deg, #eee 25%, transparent 25%),
+	  linear-gradient(45deg, transparent 75%, #eee 75%),
+      linear-gradient(-45deg, transparent 75%, #eee 75%);
 }
 
 @media (prefers-color-scheme: dark){
@@ -45,6 +50,7 @@ body,html {
 	font-size: 100%;
 	background-color: var(--background);
 	color: var(--text);
+	height: 100%;
 }
 label, button, textarea, input {
 	display: block;
@@ -62,13 +68,10 @@ ul, ol {
 li {
 	list-style: none;
 }
-textarea,
-input[type='text'],
-input[type='password'],
-input[type='url'],
-input[type='search'] {
-	width: 100%;
-}
+fieldset {
+	border: none;
+	margin-bottom: 1rem;
+} 
 input[type='text'],
 input[type='password'],
 input[type='url'],
@@ -90,9 +93,16 @@ textarea {
 	border: 1px solid var(--border);
 	background-color: var(--background);
 }
-dialog {
+dialog{
+	position: fixed;
+	width: 50%;
+	height: 50%;
+	background: #ffffff;
+	top: 25%;
+	box-shadow: 0px 0px 0px 1000px rgba(0, 0, 0, 0.5);
+	z-index: 1;
 	border: none;
-	box-shadow: 0px 0px 3px 3px var(--shadow);
+	border-radius: 8px;
 }
 button,
 .link-button {
@@ -148,6 +158,9 @@ button.toggle.on::after{
 button.toggled:hover,
 .link-button.toggled:hover {
 	background: var(--complimentary-dark);
+}
+button.text-button {
+	background: none;
 }
 .hidden {
 	display: none !important;
