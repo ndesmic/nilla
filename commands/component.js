@@ -1,4 +1,5 @@
 import { ensureCopyReplace } from "../utilities/fs-util.js";
+import { substitute } from "../utilities/name-substituter.js";
 import { dirname } from "path";
 
 export async function run(name){
@@ -10,7 +11,7 @@ export async function run(name){
         `${basedir}/templates/components/web-component/web-component.js`, 
         `${process.cwd()}/js/components/${name}.js`,
         /\$(.*?)\$/g,
-        _ => name
+        substitute(name)
     );
 };
 

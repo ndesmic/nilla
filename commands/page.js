@@ -1,4 +1,5 @@
-import { ensureCopy } from "../utilities/fs-util.js";
+import { ensureCopyReplace } from "../utilities/fs-util.js";
+import { substitute } from "../utilities/name-substituter.js";
 import { dirname } from "path";
 
 export async function run(name){
@@ -7,7 +8,12 @@ export async function run(name){
     }
     name = name.replace(/\.html$/, "");
     const basedir = dirname(dirname(import.meta.url)).replace("file:///", "");
-    await ensureCopy(`${basedir}/templates/projects/web/index.html`, `${process.cwd()}/${name}.html`);
+    await ensureCopyReplace(
+        `${basedir}/templates/projects/web/index.html`, 
+        `${process.cwd()}/${name}.html`,
+        /\$(.*?)\$/g,
+        substitute(name)
+    );
 };
 
 export const args = [

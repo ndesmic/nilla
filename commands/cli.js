@@ -1,11 +1,17 @@
-import { copyDirectoryRecursive } from "../utilities/fs-util.js";
+import { copyDirectoryRecursiveReplace } from "../utilities/fs-util.js";
+import { substitute } from "../utilities/name-substituter.js";
 
 export async function run(name){
     if(!name){
         return console.log("Please enter a project name");
     }
     const basedir = dirname(dirname(import.meta.url)).replace("file:///", "");
-    await copyDirectoryRecursive(`${basedir}/templates/cli/node-cli`, `${process.cwd()}/${name}`);
+    await copyDirectoryRecursiveReplace(
+        `${basedir}/templates/cli/node-cli`, 
+        `${process.cwd()}/${name}`,
+        /\$(.*?)\$/g,
+        substitute(name)
+    );
 };
 
 export const args = [

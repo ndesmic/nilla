@@ -15,6 +15,7 @@ export function replaceStream(regex, value){
             if(chunks.length !== 0){
                 this.push(Buffer.concat(chunks, length).toString().replace(regex, value));
             }
+            callback(null);
         }
     });
 
