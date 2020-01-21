@@ -49,8 +49,8 @@ async function updateScripts(){
 	const packageJson = await readJson(`${process.cwd()}/package.json`);
 	packageJson.scripts = { 
 		...packageJson.scripts,
-		test: "karma start ./karma.conf.js",
-		"test:debug": "karma start ./karma.conf.js --no-single-run --auto-watch"
+		test: "npx karma start ./karma.conf.js",
+		"test:debug": "npx karma start ./karma.conf.js --no-single-run --auto-watch"
 	};
 	await writeJson(`${process.cwd()}/package.json`, packageJson);
 }
