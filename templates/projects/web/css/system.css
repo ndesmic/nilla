@@ -50,7 +50,7 @@ body,html {
 	font-size: 100%;
 	background-color: var(--background);
 	color: var(--text);
-	height: 100%;
+	block-size: 100%;
 }
 label, button, textarea, input {
 	display: block;
@@ -87,25 +87,25 @@ input[type='month'],
 input[type='time'],
 input[type='email'],
 input[type='tel'] {
-	height: 2rem;
+	block-size: 2rem;
 	border: 1px solid var(--border);
 	background-color: var(--background);
 }
 textarea {
-	height: 20rem;
+	block-size: 20rem;
 	border: 1px solid var(--border);
 	background-color: var(--background);
 }
 dialog{
 	position: fixed;
-	width: 50%;
-	height: 50%;
+	inline-size: 50%;
+	block-size: 50%;
 	background: #ffffff;
 	top: 25%;
 	box-shadow: 0px 0px 0px 1000px rgba(0, 0, 0, 0.5);
 	z-index: 1;
 	border: none;
-	border-radius: 8px;
+	border-radius: 0.5rem;
 }
 button,
 .link-button {
@@ -115,7 +115,7 @@ button,
 	padding: 0.5rem;
 	color: var(--text-alt);
 	cursor: pointer;
-	margin-right: 0.5rem;
+	margin-inline-end: 0.5rem;
 }
 button:hover,
 .link-button:hover {
@@ -129,8 +129,8 @@ button.toggle,
 .link-button.toggle{
 	position: relative;
 	border-radius: 1rem;
-	width: 4rem;
-	height: 2rem;
+	inline-size: 4rem;
+	block-size: 2rem;
 	border: 1px solid var(--border);
 	padding: 0;
 	background: var(--complimentary-medium);
@@ -141,8 +141,8 @@ button.toggle::after,
 	content: "";
 	display: block;
 	border-radius: 1rem;
-	width: 2rem;
-	height: calc(2rem - 2px);
+	inline-size: 2rem;
+	block-size: calc(2rem - 2px);
 	border: 1px solid var(--border);
 	background: var(--background);
 	position: absolute;
@@ -185,26 +185,26 @@ button.text-button {
 	background: var(--negative-light);
 	border: 1px solid var(--negative-medium);
 	padding: 0.5rem;
-	margin-bottom: 1rem;
+	margin-block-end: 1rem;
 }
 .success {
 	color: var(--positive-medium);
 	background: var(--positive-light);
 	border: 1px solid var(--positive-medium);
 	padding: 0.5rem;
-	margin-bottom: 1rem;
+	margin-block-end: 1rem;
 }
 .warn {
 	color: var(--warn-medium);
 	background: var(--warn-light);
 	border: 1px solid var(--warn-medium);
 	padding: 0.5rem;
-	margin-bottom: 1rem;
+	margin-block-end: 1rem;
 }
 .info {
 	color: var(--info-medium);
 	background: var(--info-light);
 	border: 1px solid var(--info-medium);
 	padding: 0.5rem;
-	margin-bottom: 1rem;
+	margin-block-end: 1rem;
 }
