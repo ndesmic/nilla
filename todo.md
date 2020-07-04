@@ -1,2 +1,2 @@
 - Dynamically load commands + update cli command
-- component with render
+- Migrate to Deno
