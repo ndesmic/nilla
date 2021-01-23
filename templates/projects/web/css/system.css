@@ -107,6 +107,7 @@ textarea {
 	block-size: 20rem;
 	border: 1px solid var(--border);
 	background-color: var(--background);
+	font-family: arial;
 }
 dialog{
 	position: fixed;

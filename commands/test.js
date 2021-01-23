@@ -1,9 +1,5 @@
-import { copyDirectoryRecursiveReplace, exists, readJson, writeJson } from "../utilities/fs-util.js";
-import { dirname } from "path";
-import { promisify } from "util";
-import { exec } from "child_process";
-
-const execChildProcess = promisify(exec);
+import { copyDirectoryRecursiveReplace, readJson, writeJson, isDirEmpty } from "../utilities/fs-util.js";
+import { dirname } from "../utilities/path-utils.js";
 
 export async function run() {
 	await createTestFiles();
@@ -13,19 +9,19 @@ export async function run() {
 
 async function createTestFiles(){
 	//should just skip any file that already exists
-	if (await exists(`${process.cwd()}/tests`)) {
+	if (await isDirEmpty(`${Deno.cwd()}/tests`)) {
 		console.log("Test directory already exists!");
 	}
 
 	const basedir = dirname(dirname(import.meta.url)).replace("file:///", "");
 	await copyDirectoryRecursiveReplace(
 		`${basedir}/templates/test`,
-		process.cwd()
+		Deno.cwd()
 	);
 }
 
 async function installDeps(){
-	const packageJson = await readJson(`${process.cwd()}/package.json`);
+	const packageJson = await readJson(`${Deno.cwd()}/package.json`);
 	const deps = [
 		"karma",
 		"karma-chrome-launcher",
@@ -42,17 +38,21 @@ async function installIfMissing(dep, packageJson){
 	if((packageJson.devDependencies && packageJson.devDependencies[dep]) || (packageJson.dependencies && packageJson.dependencies[dep])){
 		return;
 	}
-	await execChildProcess(`npm install ${dep} --save-dev`);
+	const process = Deno.run({ cmd: ["npm", "install", dep, "--save-dev"] });
+	const { code } = await process.status();
+	if(code === 1){
+		process.close();
+	}
 }
 
 async function updateScripts(){
-	const packageJson = await readJson(`${process.cwd()}/package.json`);
+	const packageJson = await readJson(`${Deno.cwd()}/package.json`);
 	packageJson.scripts = { 
 		...packageJson.scripts,
 		test: "npx karma start ./karma.conf.js",
 		"test:debug": "npx karma start ./karma.conf.js --no-single-run --auto-watch"
 	};
-	await writeJson(`${process.cwd()}/package.json`, packageJson);
+	await writeJson(`${Deno.cwd()}/package.json`, packageJson);
 }
 
 export const args = [{}];

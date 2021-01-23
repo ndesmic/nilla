@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Somnid/app-template-wc.git"
+    "url": "git+https://github.com/$USER$/$NAME$.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Somnid/app-template-wc/issues"
+    "url": "https://github.com/$USER$/$NAME$/issues"
   },
-  "homepage": "https://github.com/Somnid/app-template-wc#readme"
+  "homepage": "https://github.com/$USER$/$NAME$#readme"
 }

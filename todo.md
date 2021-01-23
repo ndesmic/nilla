@@ -1,2 +1,2 @@
 - Dynamically load commands + update cli command
-- Migrate to Deno
+- Get templates from github
