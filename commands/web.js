@@ -4,10 +4,10 @@ import { dirname } from "../utilities/path-utils.js";
 
 export async function run(name, user){
     if(!name){
-        return console.log("Please enter a project name.");
+        throw new Error("Please enter a project name.");
     }
     if(!user){
-        return console.log("Please enter a user for the project.");
+        throw new Error("Please enter a user for the project.");
     }
 
     const basedir = dirname(dirname(import.meta.url)).replace("file:///", "");
@@ -20,7 +20,7 @@ export async function run(name, user){
             substitute(name)
         );
     } catch(ex) {
-        console.log("Did not complete", ex)
+        throw new Error("Did not complete task", ex);
     }
 };
 
